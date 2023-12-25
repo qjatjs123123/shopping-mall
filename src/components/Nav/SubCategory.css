@@ -1,0 +1,27 @@
+.subCategoryContainer {
+  position: absolute;
+  width: 100%;
+  height: 0px;
+  background-color: #fff;
+  left: 0;
+  transition: 0.2s;
+  visibility: hidden;
+  color: transparent;
+  font-size: 15px;
+}
+
+.subCategoryContainer.active {
+  visibility:visible;
+  height: 30px;
+  transform: translateY(0px);
+  color: rgb(153, 153, 153);
+  line-height: 0.8em;
+}
+
+.navSubItemSpan {
+  cursor: pointer;
+}
+.navSubItemSpan:hover {
+  color:black;
+  font-weight: bold;
+}
