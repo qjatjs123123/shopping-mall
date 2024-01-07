@@ -52,6 +52,17 @@ export default function Nav() {
           </ul>
         </div>
         <div className={"navLineBar" + (subCategoryFlg ? " active" : "")}></div>
+
+        {/* 햄버거버튼 */}
+        <div className="trigger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        
+        <div className="gnb">
+
+        </div>
       </div>
     </>
   );
