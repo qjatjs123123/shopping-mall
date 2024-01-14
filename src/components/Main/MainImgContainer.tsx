@@ -1,5 +1,5 @@
 import './MainImgContainer.css';
-import '../../../src/responsive.css';
+import '../../responsive.css';
 
 export default function MainImgContainer() {
   return (

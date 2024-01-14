@@ -1,27 +1,38 @@
 import "./Nav.css";
 import { useState } from "react";
 import SubCategory from "./SubCategory";
+import SelectNav from "../../backend/nav/SelectNav";
+import ResNav from "./ResNav";
+import "../../responsive.css";
 
 export default function Nav() {
   const [subCategoryFlg, setSubCategoryFlg] = useState(false);
+  const [gnbFlg, setGnbFlg] = useState(false);
   const [subCategory, setSubCategory] = useState<string[]>([]);
   const [curNavIdx, setCurNavIdx] = useState<number>(0);
+  const [curNavCategory, setCurNavCategory] = useState("");
+
   const navCategory = [
     { category: "상의", item: ["아우터2", "패딩", "ㅁㅁ"] },
     { category: "하의", item: ["아우터1", "패딩1", "ㅁㅁ1"] },
     { category: "신발", item: ["아우터3", "패딩", "ㅁㅁ2"] },
-    { category: "모자", item: ["아우터4", "패딩", "ㅁㅁ32",'GHJGJH'] },
+    { category: "모자", item: ["아우터4", "패딩", "ㅁㅁ32", "GHJGJH"] },
     { category: "가방", item: ["아우터5", "패딩", "ㅁㅁ4"] },
     { category: "시계", item: ["아우터6", "패딩", "ㅁㅁ65"] },
     { category: "양말", item: ["아우터", "패딩", "ㅁㅁ7"] },
     { category: "악세서리", item: ["아우터", "패딩", "ㅁㅁ9"] },
   ];
 
-  const handleNavLineBar = (flg: boolean, item: string[], idx:number) => {
+  const handleNavLineBar = (flg: boolean, item: string[], idx: number) => {
     setSubCategoryFlg(flg);
     setSubCategory(item);
     setCurNavIdx(idx);
   };
+
+  const handleResNav = (category : string) => {
+    if (curNavCategory === category) setCurNavCategory("");
+    else setCurNavCategory(category);
+  }
 
   return (
     <>
@@ -45,7 +56,7 @@ export default function Nav() {
                   item={subCategory}
                   subCategoryFlg={subCategoryFlg}
                   curNavIdx={curNavIdx}
-                  idx = {idx}
+                  idx={idx}
                 />
               </li>
             ))}
@@ -54,16 +65,15 @@ export default function Nav() {
         <div className={"navLineBar" + (subCategoryFlg ? " active" : "")}></div>
 
         {/* 햄버거버튼 */}
-        <div className="trigger">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        
-        <div className="gnb">
-
-        </div>
+        <ResNav
+          navCategory={navCategory}
+          gnbFlg={gnbFlg}
+          setGnbFlg={setGnbFlg}
+          curNavCategory = {curNavCategory} 
+          handleResNav = {handleResNav}
+        />
       </div>
+      <SelectNav/>
     </>
   );
 }
