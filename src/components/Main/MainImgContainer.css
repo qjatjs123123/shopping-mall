@@ -1,8 +1,65 @@
-.MainImgContainer img {
-  width: 100%;
+.MainImgInner img {
+  width: 100vw;
   height: 100%;
   object-fit: cover;
 }
 .MainImgContainer{
+  width: 600vw;
   position: relative;
+}
+.MainImgInner {
+  width: 100%;
+  height: 100%;
+  transition: 0.5s;
+}
+
+body{
+  overflow: hidden;
+} 
+.imgLeftButton{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 250px;
+  height: 100%;
+  background-color: transparent;
+  cursor: pointer;
+  
+}
+.imgRightButton{
+  position: absolute;
+  left: calc(100vw - 250px);
+  top: 0;
+  width: 250px;
+  height: 100%;
+  background-color: transparent;
+  cursor: pointer;
+}
+.imgButtonInner{
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.imgButtonInner > button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 33px;
+  height: 44px;
+  background-color: transparent;
+  border: 0px solid #000;
+}
+.left-arrow {
+  right: 0;
+  cursor: pointer;
+}
+.right-arrow {
+  left:0;
+  cursor: pointer;
+}
+.right-arrow > .fa,
+.left-arrow > .fa {
+
+  font-size: 40px;
+  color: white;
 }
