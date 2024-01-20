@@ -1,39 +1,30 @@
 import { useState, useEffect, useRef } from "react";
 import "./MainImgContainer.css";
+import SelectMainImg from "../../backend/main/SelectMainImg";
+
+interface mainImgList {
+  src: string;
+}
 
 export default function MainImgContainer() {
   const [imgIdx, setimgIdx] = useState(1);
   const [flg, setFlg] = useState(false);
   const [stopflg, setStopflg] = useState(false);
+  const [mainImgList, setMainImgList] = useState<mainImgList[]>([]);
+  const [imgMaxLen, setimgMaxLen] = useState(0);
+
   const isTransitionRef = useRef(false);
   const isStop = useRef(false);
   useEffect(() => {
-    setInterval(() => {
+    const intervalId = setInterval(() => {
       if (isStop.current) return;
       if (!isTransitionRef.current) handleMainImg(1);
     }, 5000);
-  }, []);
-
-  const mainImgList = [
-    {
-      src: "https://atimg.sonyunara.com/files/attrangs/new_banner/1705387347_1.jpg",
-    },
-    {
-      src: "https://atimg.sonyunara.com/files/attrangs/new_banner/1703232790_0.jpg",
-    },
-    {
-      src: "https://atimg.sonyunara.com/files/attrangs/new_banner/1705463928_0.jpg",
-    },
-    {
-      src: "https://atimg.sonyunara.com/files/attrangs/new_banner/1705387292_0.jpg",
-    },
-    {
-      src: "https://atimg.sonyunara.com/files/attrangs/new_banner/1705387347_1.jpg",
-    },
-    {
-      src: "https://atimg.sonyunara.com/files/attrangs/new_banner/1703232790_0.jpg",
-    },
-  ];
+  
+    return () => {
+      clearInterval(intervalId);
+    };
+  });
 
   const handleMainImg = (val: number) => {
     if (isTransitionRef.current) return;
@@ -52,9 +43,9 @@ export default function MainImgContainer() {
       if (newIdx === 0) {
         setTimeout(() => {
           setFlg(true);
-          setimgIdx(4);
+          setimgIdx(imgMaxLen);
         }, 700);
-      } else if (newIdx === 5) {
+      } else if (newIdx === imgMaxLen + 1) {
         setTimeout(() => {
           setFlg(true);
           setimgIdx(1);
@@ -63,6 +54,14 @@ export default function MainImgContainer() {
 
       return newIdx;
     });
+  };
+
+  const calWidth = () => {
+    const percent = 100 / (mainImgList.length - 2);
+    let mult = imgIdx;
+    if (imgIdx === imgMaxLen + 1) mult = 1;
+    else if (imgIdx === 0) mult = imgMaxLen;
+    return percent * mult;
   };
 
   return (
@@ -76,14 +75,14 @@ export default function MainImgContainer() {
           }}
         >
           {mainImgList.map(({ src }, idx) => (
-            <img src={src} key={idx}></img>
+            <img src={src} key={idx} alt=""></img>
           ))}
           <div className="progressBar-container">
             <div className="progressInner">
               <div
                 className="progressBar"
                 style={{
-                  width: (100 / (mainImgList.length - 2)) * imgIdx + "%",
+                  width: calWidth() + "%",
                 }}
               ></div>
             </div>
@@ -134,6 +133,10 @@ export default function MainImgContainer() {
           </div>
         </div>
       </div>
+      <SelectMainImg
+        setMainImgList={setMainImgList}
+        setimgMaxLen={setimgMaxLen}
+      />
     </>
   );
 }
