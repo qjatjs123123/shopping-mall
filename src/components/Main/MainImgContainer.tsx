@@ -76,6 +76,14 @@ export default function MainImgContainer() {
           {mainImgList.map(({ src }, idx) => (
             <img src={src} key={idx}></img>
           ))}
+          <div className="progressBar-container">
+            <div className="progressInner">
+              <div className="progressBar" style={{width: ((100 / (mainImgList.length - 2))* (imgIdx)) + '%'}}>
+
+              </div>
+            </div>
+          </div>
+
         </div>
         <div className="imgLeftButton">
           <div
