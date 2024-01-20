@@ -182,4 +182,23 @@
     font-weight: 500;
   }
 
+  .imgLeftButton {
+    display: none;
+  }
+
+  .imgRightButton {
+    display: none;
+  }
+
+  .progressBar-container{
+    position: absolute;
+    left: 3%;
+    bottom: 100px;
+    width: 400px;
+    height: 12px;
+    display: none;
+    flex-direction: row;
+    line-height: 0;
+  }
+
 }

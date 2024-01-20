@@ -1,5 +1,5 @@
 import "./SubCategory.css";
-
+import "../../responsive.css";
 interface PropsTypes {
   item: string[];
   subCategoryFlg: boolean;
