@@ -14,7 +14,7 @@
 }
 
 body{
-  overflow: hidden;
+  overflow-x: hidden;
 } 
 .imgLeftButton{
   position: absolute;
