@@ -182,11 +182,11 @@
     font-weight: 500;
   }
 
-  .imgLeftButton {
+  .MainImgContainer .imgLeftButton {
     display: none;
   }
 
-  .imgRightButton {
+  .MainImgContainer .imgRightButton {
     display: none;
   }
 

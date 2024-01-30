@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import "./MainImgContainer.css";
 import SelectMainImg from "../../backend/main/SelectMainImg";
+import LeftButtonArrow from "../Common/LeftButtonArrow";
+import RightButtonArrow from "../Common/RightButtonArrow";
 
 interface mainImgList {
   src: string;
@@ -107,31 +109,9 @@ export default function MainImgContainer() {
             </div>
           </div>
         </div>
-        <div className="imgLeftButton">
-          <div
-            className="imgButtonInner"
-            onClick={() => {
-              handleMainImg(-1);
-            }}
-          >
-            <button className="left-arrow">
-              <i className="fa fa-arrow-left"></i>
-            </button>
-          </div>
-        </div>
-
-        <div className="imgRightButton">
-          <div
-            className="imgButtonInner"
-            onClick={() => {
-              handleMainImg(1);
-            }}
-          >
-            <button className="right-arrow">
-              <i className="fa fa-arrow-right"></i>
-            </button>
-          </div>
-        </div>
+        <LeftButtonArrow handleImgSlide = {handleMainImg}/>
+        <RightButtonArrow handleImgSlide = {handleMainImg}/>
+        
       </div>
       <SelectMainImg
         setMainImgList={setMainImgList}
