@@ -67,6 +67,7 @@
   color: white;
 }
 .eventImgContainerParent{
+  cursor: pointer;
   width: calc(100% - 20px);
 overflow: hidden;
 margin: 0 auto;
