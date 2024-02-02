@@ -20,7 +20,13 @@ export default function ResNav({
 }: PropsTypes) {
   return (
     <>
-      <div className="trigger" onClick={() => setGnbFlg(true)}>
+      <div
+        className="trigger"
+        onClick={() => {
+          setGnbFlg(true);
+          document.body.classList.add("overflow-hidden");
+        }}
+      >
         <span></span>
         <span></span>
         <span></span>
@@ -30,7 +36,13 @@ export default function ResNav({
         <div className="gnb-inner">
           <div className="gnb-title">
             <div className="logoimg1"></div>
-            <div className="gnb-close" onClick={() => setGnbFlg(false)}>
+            <div
+              className="gnb-close"
+              onClick={() => {
+                setGnbFlg(false);
+                document.body.classList.remove('overflow-hidden');
+              }}
+            >
               <div className="gnb-close-inner">
                 <span></span>
                 <span></span>

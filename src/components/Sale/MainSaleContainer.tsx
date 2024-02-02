@@ -1,33 +1,25 @@
 import LeftButtonArrow from "../Common/LeftButtonArrow";
 import RightButtonArrow from "../Common/RightButtonArrow";
+import SelectSaleImg from "../../backend/sale/SelectSaleImg";
+
 import "./MainSaleContainer.css";
 
 import React, { useEffect, useRef, useState } from "react";
+
+interface SaleImgProps {
+  src: string;
+  txt: string;
+}
 
 export default function MainSaleContainer() {
   const [innerWidth, setinnerWidth] = useState(0);
   const [cnt, setCnt] = useState(1);
   const [curMargin, setCurMargin] = useState(0);
   const [curImgIdx, setCurImgIdx] = useState<number>(3);
-  const [saleImgList, setSaleImgList] = useState<string[]>([]);
+  const [saleImgList, setSaleImgList] = useState<SaleImgProps[]>([]);
   const [imgMaxLen, setimgMaxLen] = useState(0);
   const [flg, setFlg] = useState(false);
   const isTransitionRef = useRef(false);
-
-  const img = [
-    "https://atimg.sonyunara.com/files/attrangs/new_banner/1705906174_0.jpg",
-    "https://atimg.sonyunara.com/files/attrangs/new_banner/1699788903_0.png",
-    "https://atimg.sonyunara.com/files/attrangs/new_banner/1705906195_0.jpg",
-    "https://atimg.sonyunara.com/files/attrangs/new_banner/1705906184_0.jpg",
-    "https://atimg.sonyunara.com/files/attrangs/new_banner/1705906143_0.jpg",
-    "https://atimg.sonyunara.com/files/attrangs/new_banner/1705906247_0.jpg",
-    "https://atimg.sonyunara.com/files/attrangs/new_banner/1705906174_0.jpg",
-    "https://atimg.sonyunara.com/files/attrangs/new_banner/1699788903_0.png",
-    "https://atimg.sonyunara.com/files/attrangs/new_banner/1705906195_0.jpg",
-    "https://atimg.sonyunara.com/files/attrangs/new_banner/1705906184_0.jpg",
-    "https://atimg.sonyunara.com/files/attrangs/new_banner/1705906143_0.jpg",
-    "https://atimg.sonyunara.com/files/attrangs/new_banner/1705906247_0.jpg",
-  ];
 
   const handleResize = () => {
     setCurMargin(Math.round(document.documentElement.clientWidth / 10));
@@ -38,8 +30,6 @@ export default function MainSaleContainer() {
 
   useEffect(() => {
     setCnt(1);
-    setSaleImgList(img);
-    setimgMaxLen(img.length);
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => {
@@ -104,7 +94,7 @@ export default function MainSaleContainer() {
                 transition: flg ? "0.0s" : "0.5s",
               }}
             >
-              {saleImgList.map((src, idx) => (
+              {saleImgList.map(({ src, txt }, idx) => (
                 <div
                   key={idx}
                   className="eventImgInner"
@@ -115,12 +105,17 @@ export default function MainSaleContainer() {
                   }}
                 >
                   <img src={src} alt=""></img>
+                  <div>{txt}</div>
                 </div>
               ))}
             </div>
           </div>
         </div>
       </div>
+      <SelectSaleImg
+        setSaleImgList={setSaleImgList}
+        setimgMaxLen={setimgMaxLen}
+      />
     </>
   );
 }
