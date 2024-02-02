@@ -1,5 +1,5 @@
 [[redirects]]
-  from = "/graphql/*"
+  from = "http://43.202.154.86:5001/graphql/*"
   to = "http://43.202.154.86:5001/graphql/:splat"
   status = 200
   force = true
