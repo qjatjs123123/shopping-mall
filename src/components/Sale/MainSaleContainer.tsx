@@ -48,7 +48,7 @@ export default function MainSaleContainer() {
 
     setCurImgIdx((curImgIdx) => {
       const newIdx = curImgIdx + val;
-
+      console.log(newIdx);
       setFlg(false);
 
       if (newIdx === 0) {
@@ -67,6 +67,12 @@ export default function MainSaleContainer() {
     });
   };
 
+  const pageNumberHandler = () => {
+    if (curImgIdx > imgMaxLen - 6) return curImgIdx - (imgMaxLen - 6);
+    else if (curImgIdx === 0) return imgMaxLen - 6;
+    return curImgIdx;
+  }
+
   return (
     <>
       <div
@@ -77,7 +83,14 @@ export default function MainSaleContainer() {
           width: `calc(100% - ${curMargin * 2}px)`,
         }}
       >
-        <h2>이벤트</h2>
+        <div className="MainSaleTitle">
+          <h2>이벤트</h2>
+          <div className="PageNumberContainer">
+            {pageNumberHandler()} / 
+            <span>{imgMaxLen - 6}</span>
+          </div>
+        </div>
+        
         <div className="ButtonContainer">
           <LeftButtonArrow handleImgSlide={saleImgSlider} />
           <RightButtonArrow handleImgSlide={saleImgSlider} />
