@@ -87,7 +87,7 @@ export default function MainSaleContainer() {
           <h2>이벤트</h2>
           <div className="PageNumberContainer">
             {pageNumberHandler()} / 
-            <span>{imgMaxLen - 6}</span>
+            <span> {imgMaxLen - 6}</span>
           </div>
         </div>
         
@@ -118,7 +118,11 @@ export default function MainSaleContainer() {
                   }}
                 >
                   <img src={src} alt=""></img>
-                  <div>{txt}</div>
+                  <div style={{
+                    width: `calc(((${innerWidth}px - ${
+                      curMargin * 2
+                    }px) / ${cnt}) - 20px)`,
+                  }}>{txt}</div>
                 </div>
               ))}
             </div>

@@ -34,6 +34,12 @@
   margin-right: 20px;
 
 }
+.eventImgInner > div{
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden; /* 넘치는 텍스트를 감출 것임을 설정 */
+  text-overflow: ellipsis; /* 넘치는 텍스트에 "..."을 추가하여 표시 */
+}
 .ButtonContainer {
   position: relative;
 }
@@ -43,13 +49,14 @@
   right: 0;
   top: 0;
   width: 4%;
-  height: 100%;
+  height: calc(100% - 20px);
   background-color: transparent;
   margin-right: 35px;
   cursor: pointer;
 }
 .ButtonContainer .imgLeftButton{
   width: 4%;
+  height: calc(100% - 20px);
   padding-left: 30px;
 
 }
