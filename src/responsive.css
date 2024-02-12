@@ -171,7 +171,7 @@
     transition: 0.5s;
   }
   .responsive-SubCategory-container.active {
-    max-height: 300px;
+    max-height: 500px;
   }
 
   .responsive-navItem.active{
