@@ -5,8 +5,8 @@ import './index.css'
 
 const client = new ApolloClient({
   // 백엔드는 postgraphile을 사용합니다.
-  uri: 'http://43.202.154.86:5001/graphql',
-  // uri: 'http://127.0.0.1:5000/graphql',
+  // uri: 'http://43.202.154.86:5001/graphql',
+  uri: 'http://127.0.0.1:5000/graphql',
   cache: new InMemoryCache(),
 });
 

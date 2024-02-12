@@ -15,7 +15,7 @@ export default function MainSaleContainer() {
   const [innerWidth, setinnerWidth] = useState(0);
   const [cnt, setCnt] = useState(1);
   const [curMargin, setCurMargin] = useState(0);
-  const [curImgIdx, setCurImgIdx] = useState<number>(1);
+  const [curImgIdx, setCurImgIdx] = useState<number>(3);
   const [saleImgList, setSaleImgList] = useState<SaleImgProps[]>([]);
   const [imgMaxLen, setimgMaxLen] = useState(0);
   const isTransitionRef = useRef(false);
@@ -25,6 +25,7 @@ export default function MainSaleContainer() {
   const mouseup = useRef(true);
   const flg = useRef(false);
   const [delta, setDelta] = useState(0);
+  const idx = useRef(1);
 
   const handleResize = () => {
     setCurMargin(Math.round(document.documentElement.clientWidth / 10));
@@ -32,6 +33,7 @@ export default function MainSaleContainer() {
     if (document.documentElement.clientWidth <= 768) setCnt(1);
     else setCnt(3);
   };
+
   useEffect(() => {
     const element = eventImgContainerParent.current;
     if (imgMaxLen === 0 || !element) return;
@@ -45,8 +47,9 @@ export default function MainSaleContainer() {
     const handleMouseMove = (e: MouseEvent) => {
       if (mouseup.current) return;
       endPoint.current = e.pageX;
-      const tmp = endPoint.current - startPoint.current;
+      const tmp = (endPoint.current - startPoint.current);
       if (tmp === 0) return;
+
       setDelta(tmp);
     };
 
@@ -86,27 +89,23 @@ export default function MainSaleContainer() {
   }, []);
 
   const saleImgSlider = (val: number) => {
-    if (isTransitionRef.current) return;
-    if (!isTransitionRef.current) {
-      isTransitionRef.current = true;
-      setTimeout(() => {
-        isTransitionRef.current = false;
-      }, 500);
-    }
+
+    if(isTransitionCheck()) return;
+    pageNumberHandler(val);
 
     setCurImgIdx((curImgIdx) => {
       const newIdx = curImgIdx + val;
-
       flg.current = false;
-      if (newIdx <= 0) {
+      if (newIdx <= 2) {
         setTimeout(() => {
           flg.current = true;
-          setCurImgIdx(imgMaxLen - 6);
+          setCurImgIdx(6 + newIdx);
         }, 500);
-      } else if (newIdx >= imgMaxLen - 3) {
+      } else if (newIdx > imgMaxLen - 6) {
+      
         setTimeout(() => {
           flg.current = true;
-          setCurImgIdx(3);
+          setCurImgIdx(newIdx - 6);
         }, 500);
       }
 
@@ -114,10 +113,21 @@ export default function MainSaleContainer() {
     });
   };
 
-  const pageNumberHandler = () => {
-    if (curImgIdx > imgMaxLen - 6) return curImgIdx - (imgMaxLen - 6);
-    else if (curImgIdx === 0) return imgMaxLen - 6;
-    return curImgIdx;
+  const isTransitionCheck = () => {
+    if (isTransitionRef.current) return true;
+    if (!isTransitionRef.current) {
+      isTransitionRef.current = true;
+      setTimeout(() => {
+        isTransitionRef.current = false;
+      }, 500);
+    }
+    return false;
+  }
+
+  const pageNumberHandler = (val : number) => {
+    if (idx.current + val > 6) idx.current = idx.current + val - 6;
+    else if (idx.current + val <= 0) idx.current = idx.current + val + 6;
+    else idx.current = idx.current + val;
   };
 
   return (
@@ -133,7 +143,7 @@ export default function MainSaleContainer() {
         <div className="MainSaleTitle">
           <h2>이벤트</h2>
           <div className="PageNumberContainer">
-            {pageNumberHandler()} /<span> {imgMaxLen - 6}</span>
+            {idx.current} /<span> {imgMaxLen - 6}</span>
           </div>
         </div>
 
