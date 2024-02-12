@@ -38,8 +38,10 @@ export default function MainSaleContainer() {
     const element = eventImgContainerParent.current;
     if (imgMaxLen === 0 || !element) return;
 
+
     const movePos = (e: TouchEvent | MouseEvent) => {
-      endPoint.current = e instanceof TouchEvent ? e.touches[0].pageX : e.pageX;
+     
+      endPoint.current = e instanceof TouchEvent ? endPoint.current : e.pageX;
       mousedown.current = false;
       flg.current = false;
       const dist = endPoint.current - startPoint.current;
@@ -68,7 +70,7 @@ export default function MainSaleContainer() {
       endPoint.current = e instanceof TouchEvent ? e.touches[0].pageX : e.pageX;
       const tmp = endPoint.current - startPoint.current;
       if (tmp === 0) return;
-
+      
       setDelta(tmp);
     };
 
@@ -81,12 +83,22 @@ export default function MainSaleContainer() {
     element.addEventListener("mouseup", handleMouseUp);
     element.addEventListener("mouseout", handleMouseOut);
 
+    element.addEventListener("touchstart", handleMouseDown);
+    element.addEventListener("touchmove", handleMouseMove);
+    element.addEventListener("touchend", handleMouseUp);
+    element.addEventListener("touchcancel", handleMouseOut);
+
     // 리스너를 제거하는 함수 반환
     return () => {
       element.removeEventListener("mousedown", handleMouseDown);
       element.removeEventListener("mousemove", handleMouseMove);
       element.removeEventListener("mouseup", handleMouseUp);
       element.removeEventListener("mouseout", handleMouseOut);
+
+      element.removeEventListener("touchstart", handleMouseDown);
+      element.removeEventListener("touchmove", handleMouseMove);
+      element.removeEventListener("touchend", handleMouseUp);
+      element.removeEventListener("touchcancel", handleMouseOut);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imgMaxLen]);
