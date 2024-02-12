@@ -22,7 +22,7 @@ export default function MainSaleContainer() {
   const eventImgContainerParent = useRef<HTMLDivElement>(null);
   const startPoint = useRef(0);
   const endPoint = useRef(0);
-  const mouseup = useRef(true);
+  const mousedown = useRef(false);
   const flg = useRef(false);
   const [delta, setDelta] = useState(0);
   const idx = useRef(1);
@@ -38,44 +38,57 @@ export default function MainSaleContainer() {
     const element = eventImgContainerParent.current;
     if (imgMaxLen === 0 || !element) return;
 
-    const handleMouseDown = (e: MouseEvent) => {
-      startPoint.current = e.pageX; // 마우스 드래그 시작 위치 저장
-      mouseup.current = false;
+    const movePos = (e: TouchEvent | MouseEvent) => {
+      endPoint.current = e instanceof TouchEvent ? e.touches[0].pageX : e.pageX;
+      mousedown.current = false;
+      flg.current = false;
+      const dist = endPoint.current - startPoint.current;
+      const gap = (innerWidth - curMargin * 2) / cnt;
+      let plus = 0;
+      if (dist < 0) plus = Math.round((dist * -1) / gap) * -1;
+      else plus = Math.round(dist / gap);
+      setDelta(delta * -1);
+      saleImgSlider(plus * -1);
+    }
+
+    const handleMouseOut = (e: TouchEvent | MouseEvent) => {
+      if (!mousedown.current) return;
+      movePos(e);
+    }
+    
+    const handleMouseDown = (e: TouchEvent | MouseEvent) => {
+      startPoint.current =
+        e instanceof TouchEvent ? e.touches[0].pageX : e.pageX;
+      mousedown.current = true;
       flg.current = true;
     };
 
-    const handleMouseMove = (e: MouseEvent) => {
-      if (mouseup.current) return;
-      endPoint.current = e.pageX;
-      const tmp = (endPoint.current - startPoint.current);
+    const handleMouseMove = (e: TouchEvent | MouseEvent) => {
+      if (!mousedown.current) return;
+      endPoint.current = e instanceof TouchEvent ? e.touches[0].pageX : e.pageX;
+      const tmp = endPoint.current - startPoint.current;
       if (tmp === 0) return;
 
       setDelta(tmp);
     };
 
-    const handleMouseUp = (e: MouseEvent) => {
-      setDelta(delta * -1);
-      mouseup.current = true;
-      flg.current = false;
-      const tmp = endPoint.current - startPoint.current;
-      const gap = (innerWidth - curMargin * 2) / cnt;
-      let plus = 0;
-      if (tmp < 0) plus = Math.round((tmp * -1) / gap) * -1;
-      else plus = Math.round(tmp / gap);
-      saleImgSlider(plus * -1);
+    const handleMouseUp = (e: TouchEvent | MouseEvent) => {
+      movePos(e);
     };
 
     element.addEventListener("mousedown", handleMouseDown);
     element.addEventListener("mousemove", handleMouseMove);
     element.addEventListener("mouseup", handleMouseUp);
+    element.addEventListener("mouseout", handleMouseOut);
 
     // 리스너를 제거하는 함수 반환
     return () => {
       element.removeEventListener("mousedown", handleMouseDown);
       element.removeEventListener("mousemove", handleMouseMove);
       element.removeEventListener("mouseup", handleMouseUp);
+      element.removeEventListener("mouseout", handleMouseOut);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imgMaxLen]);
 
   useEffect(() => {
@@ -89,8 +102,7 @@ export default function MainSaleContainer() {
   }, []);
 
   const saleImgSlider = (val: number) => {
-
-    if(isTransitionCheck()) return;
+    if (isTransitionCheck()) return;
     pageNumberHandler(val);
 
     setCurImgIdx((curImgIdx) => {
@@ -102,7 +114,6 @@ export default function MainSaleContainer() {
           setCurImgIdx(6 + newIdx);
         }, 500);
       } else if (newIdx > imgMaxLen - 6) {
-      
         setTimeout(() => {
           flg.current = true;
           setCurImgIdx(newIdx - 6);
@@ -122,9 +133,9 @@ export default function MainSaleContainer() {
       }, 500);
     }
     return false;
-  }
+  };
 
-  const pageNumberHandler = (val : number) => {
+  const pageNumberHandler = (val: number) => {
     if (idx.current + val > 6) idx.current = idx.current + val - 6;
     else if (idx.current + val <= 0) idx.current = idx.current + val + 6;
     else idx.current = idx.current + val;
