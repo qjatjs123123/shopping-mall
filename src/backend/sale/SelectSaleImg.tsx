@@ -25,11 +25,13 @@ interface saleImgList {
   txt: string;
 }
 interface PropsType {
+  cnt : number,
   setSaleImgList: (param: saleImgList[]) => void;
-  setimgMaxLen: (param: number) => void
+  setimgMaxLen: (param: number) => void,
+  setSaleImgCnt: (param: number) => void,
 }
 
-export default function SelectSaleImg({ setSaleImgList, setimgMaxLen }: PropsType) {
+export default function SelectSaleImg({ cnt, setSaleImgList, setimgMaxLen, setSaleImgCnt }: PropsType) {
   const { data } = useQuery<SaleImgData>(GET_SaleImg);
 
   useEffect(() => {
@@ -38,16 +40,13 @@ export default function SelectSaleImg({ setSaleImgList, setimgMaxLen }: PropsTyp
         src: saleimgSrc,
         txt:saleimgTxt
       }));
-      ImgList.unshift(ImgList[ImgList.length - 1]);
-      ImgList.unshift(ImgList[ImgList.length - 2]);
-      ImgList.unshift(ImgList[ImgList.length - 3]);
-      ImgList.push(ImgList[3]);
-      ImgList.push(ImgList[4]);
-      ImgList.push(ImgList[5]);
+      setSaleImgCnt(ImgList.length);
+      for (let i = 1; i <= cnt; i++) ImgList.unshift(ImgList[ImgList.length - i]);
+      for (let i = 0; i < cnt; i++ ) ImgList.push(ImgList[cnt + i]);
       setSaleImgList(ImgList);
       setimgMaxLen(ImgList.length);
     }
-  }, [data, setSaleImgList, setimgMaxLen]);
+  }, [cnt, data, setSaleImgCnt, setSaleImgList, setimgMaxLen]);
 
   return <></>;
 }

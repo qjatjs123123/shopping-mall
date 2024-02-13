@@ -1,0 +1,112 @@
+.MainSaleTitle h2 {
+  margin-left: 10px;
+}
+
+.saleTitleContainer {
+  width: auto;
+  height: 100px;
+  margin: 0 auto;
+  padding: 5vw 100px 5vw 100px;
+}
+.eventImgContainer {
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  
+}
+.eventImgInner img {
+  width: 100%;
+  height: auto;
+  object-fit:fill;
+  box-sizing: border-box;
+}
+.eventImgInner{
+
+  margin-right: 20px;
+
+}
+.eventImgInner > div{
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden; /* 넘치는 텍스트를 감출 것임을 설정 */
+  text-overflow: ellipsis; /* 넘치는 텍스트에 "..."을 추가하여 표시 */
+}
+.ButtonContainer {
+  position: relative;
+}
+.ButtonContainer .imgRightButton{
+  position: absolute;
+  left: unset;
+  right: 25px;
+  top: 0;
+  width: 0;
+  height: calc(100% - 20px);
+  background-color: transparent;
+  margin-right: 35px;
+  cursor: pointer;
+}
+.ButtonContainer .imgLeftButton{
+  width: 0;
+  height: calc(100% - 20px);
+  margin-left: 60px;
+
+}
+.ButtonContainer > .imgLeftButton > .imgButtonInner > .left-arrow > .fa,
+.ButtonContainer > .imgRightButton > .imgButtonInner > .right-arrow > .fa{
+
+  font-size: 2.5em;
+  color: white;
+}
+.eventImgContainerParent{
+  cursor: pointer;
+  width: calc(100% - 20px);
+overflow: hidden;
+margin: 0 auto;
+}
+.MainSaleTitle{
+  position: relative;
+  height: 150px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.MainSaleTitle h2{
+  position: absolute;
+  margin: 0 0;
+  left: 0;
+  bottom: 20px;
+  /* top: 50%;
+  transform: translateY(-50%); */
+}
+.MainSaleTitle .PageNumberContainer {
+  position: absolute;
+  right: 0;
+  bottom: 20px;
+}
+.MainSaleTitle .PageNumberContainer span{
+  color:#b3b2b1;
+}
+@media (max-width: 768px) {
+  /* .MainSaleContainer h2 {
+    text-align: center;
+    margin-bottom: 30px;
+  } */
+  .MainSaleTitle h2{
+    text-align: center;
+    margin-bottom: 30px;
+    position: absolute;
+    top: 50%;
+    bottom: unset;
+    transform: translateY(-50%);
+  }
+  .MainSaleTitle .PageNumberContainer {
+    position: absolute;
+    top: 50%;
+    bottom: unset;
+    transform: translateY(-50%);
+  }
+  .MainSaleTitle{
+    height: 90px;
+
+  }
+}
