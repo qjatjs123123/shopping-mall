@@ -41,8 +41,8 @@ export default function SelectSaleImg({ cnt, setSaleImgList, setimgMaxLen, setSa
         txt:saleimgTxt
       }));
       setSaleImgCnt(ImgList.length);
-      for (let i = 1; i <= cnt; i++) ImgList.unshift(ImgList[ImgList.length - i]);
-      for (let i = 0; i < cnt; i++ ) ImgList.push(ImgList[cnt + i]);
+      for (let i = 1; i <= cnt*2; i++) ImgList.unshift(ImgList[ImgList.length - i]);
+      for (let i = 0; i < cnt*2; i++ ) ImgList.push(ImgList[cnt*2 + i]);
       setSaleImgList(ImgList);
       setimgMaxLen(ImgList.length);
     }

@@ -29,7 +29,7 @@ export default function MainSaleContainer({
   imgCnt,
   title,
 }: propsType) {
-  const [curImgIdx, setCurImgIdx] = useState<number>(cnt);
+  const [curImgIdx, setCurImgIdx] = useState<number>(cnt*2);
   const isTransitionRef = useRef(false);
   const eventImgContainerParent = useRef<HTMLDivElement>(null);
   const startPoint = useRef(0);
@@ -119,12 +119,12 @@ export default function MainSaleContainer({
     setCurImgIdx((curImgIdx) => {
       const newIdx = curImgIdx + val;
       flg.current = false;
-      if (newIdx <= cnt - 1 && val < 0) {
+      if (newIdx <= cnt*2 - 1 && val < 0) {
           setTimeout(() => {
             flg.current = true;
             setCurImgIdx(imgCnt + newIdx);
           }, 500);
-        } else if (newIdx > imgMaxLen - imgCnt && val > 0) {
+        } else if (newIdx >= cnt*2 + imgCnt && val > 0) {
           setTimeout(() => {
             flg.current = true;
             setCurImgIdx(newIdx - imgCnt);
