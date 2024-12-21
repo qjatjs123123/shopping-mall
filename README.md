@@ -21,4 +21,4 @@
 - 이미지 슬라이더 컴포넌트 [코드 바로보기](https://github.com/qjatjs123123/shopping-mall/blob/main/src/components/Common/ImgSliderComponents.tsx#L1-L212)
   - 버튼 클릭 외에도 마우스 드래그로 슬라이더 기능
     
-- 재사 컴포넌트 [코드 바로보기](https://github.com/qjatjs123123/shopping-mall/blob/main/src/components/Sale/MainSaleContainer.tsx#L33-L41)
+- 재사용 컴포넌트 [코드 바로보기](https://github.com/qjatjs123123/shopping-mall/blob/main/src/components/Sale/MainSaleContainer.tsx#L33-L41)
