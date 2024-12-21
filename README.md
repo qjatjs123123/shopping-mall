@@ -22,3 +22,7 @@
   - 버튼 클릭 외에도 마우스 드래그로 슬라이더 기능
     
 - 재사용 컴포넌트 [코드 바로보기](https://github.com/qjatjs123123/shopping-mall/blob/main/src/components/Sale/MainSaleContainer.tsx#L33-L41)
+
+💡  **타입스크립트 연습**
+
+💡  **graphQL 연습**
